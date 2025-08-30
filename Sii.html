@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ပါဠိစကားပြော-Pali Speaking</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pyidaungsu:wght@400;700&display=swap');
+        body {
+            font-family: 'Pyidaungsu', sans-serif;
+            transition: background-color 0.3s ease;
+            background-image: linear-gradient(135deg, #FFD700, #FFA500, #FF6347);
+        }
+        .light-mode {
+            background-color: #f3f4f6;
+            background-image: none;
+            color: #374151;
+        }
+        .dark-mode {
+            background-image: none;
+            background-color: #111827;
+            color: #f3f4f6;
+        }
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s ease-in-out;
+        }
+        .dark-mode .glassmorphism {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .btn-glass {
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border-radius: 8px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+        .btn-glass:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 40px rgba(0, 0, 0, 0.2);
+        }
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        .light-mode .btn-text-gradient {
+            background-image: linear-gradient(135deg, #FFD700, #FFA500, #FF6347);
+        }
+        .dark-mode .btn-text-gradient {
+            background-image: linear-gradient(135deg, #A855F7, #EC4899, #F59E0B, #10B981);
+            animation: pulse-gradient 2s infinite;
+        }
+        @keyframes pulse-gradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        .light-mode .bg-yellow-100 {
+            background-color: #FFFACD;
+        }
+        .moving-toggle {
+            position: relative;
+            width: 120px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            padding: 4px;
+            cursor: pointer;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+        .moving-toggle-btn {
+            position: absolute;
+            width: 50%;
+            height: 80%;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 16px;
+            transition: transform 0.3s ease;
+        }
+        .moving-toggle span {
+            position: relative;
+            z-index: 10;
+            flex: 1;
+            text-align: center;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        .moving-toggle[data-lang="en"] .moving-toggle-btn {
+            transform: translateX(100%);
+        }
+        .modal {
+            background: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s ease;
+        }
+        .modal-content {
+            animation: slideIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .robot-card {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s ease-in-out;
+            border-top: 5px solid #4CAF50;
+            border-bottom: 5px solid #4CAF50;
+        }
+
+        .dark-mode .robot-card {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .robot-input {
+            border-radius: 10px;
+            border: 2px solid #4CAF50;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .robot-input:focus {
+            outline: none;
+            box-shadow: 0 0 8px #4CAF50;
+        }
+
+        .robot-btn {
+            background: #4CAF50;
+            color: white;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+        }
+
+        .robot-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.6);
+        }
+
+        .robot-title {
+            color: #4CAF50;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+</head>
+<body class="bg-gray-200 transition-colors duration-300 light-mode">
+    <div id="app" class="min-h-screen flex flex-col items-center justify-center p-4">
+        <!-- PWA Install Prompt -->
+        <div id="install-prompt-container" class="fixed top-4 right-4 z-50 hidden">
+            <div class="glassmorphism p-3 rounded-lg flex items-center space-x-2">
+                <span id="install-text"></span>
+                <button id="install-button" class="btn-glass px-4 py-2 text-white">
+                    <span class="btn-text-gradient">Install</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div id="main-content" class="w-full max-w-4xl p-8 glassmorphism text-gray-800 dark-text hidden flex-grow flex flex-col">
+            <!-- Header with controls -->
+            <div class="flex justify-between items-center mb-6">
+                <h1 class="text-3xl font-bold text-center text-gradient">ပါဠိစကားပြော-Pali Speaking</h1>
+                <div class="flex items-center space-x-4">
+                    <!-- Dark/Light Mode Toggle -->
+                    <button id="mode-toggle" class="btn-glass px-4 py-2">
+                        <span id="mode-text">Dark Mode</span>
+                    </button>
+                    <!-- Language Toggle -->
+                    <div id="lang-toggle" class="moving-toggle" data-lang="my">
+                        <div class="moving-toggle-btn"></div>
+                        <span data-lang-val="my" class="text-gray-800">MY</span>
+                        <span data-lang-val="en" class="text-gray-400">EN</span>
+                    </div>
+                    <!-- Admin Login Button -->
+                    <button id="admin-login-btn" class="btn-glass px-4 py-2">
+                        <span class="btn-text-gradient">Admin</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-4 mb-8">
+                <button id="nav-videos" class="btn-glass p-4 text-white font-bold text-xl"><span class="btn-text-gradient">သင်တန်းဗီဒီယို</span></button>
+                <button id="nav-teachers" class="btn-glass p-4 text-white font-bold text-xl"><span class="btn-text-gradient">ဆရာစာရင်း</span></button>
+                <button id="nav-schedule" class="btn-glass p-4 text-white font-bold text-xl"><span class="btn-text-gradient">သင်တန်းအချိန်စာရင်း</span></button>
+                <button id="nav-posts" class="btn-glass p-4 text-white font-bold text-xl"><span class="btn-text-gradient">ပို့စ်များ</span></button>
+                <button id="nav-history" class="btn-glass p-4 text-white font-bold text-xl"><span class="btn-text-gradient">သင်တန်းသမိုင်း</span></button>
+                <button id="nav-contact" class="btn-glass p-4 text-white font-bold text-xl"><span class="btn-text-gradient">ဆက်သွယ်ရန်</span></button>
+                <button id="nav-pali-tutor" class="btn-glass p-4 text-white font-bold text-xl"><span class="btn-text-gradient">ပါဠိ Tutor ✨</span></button>
+            </div>
+
+            <!-- Content Area -->
+            <div id="content-area" class="flex-grow flex flex-col"></div>
+        </div>
+
+        <!-- Login UI -->
+        <div id="login-container" class="w-full max-w-sm p-8 robot-card text-gray-800 dark-text flex flex-col items-center justify-center">
+            <svg class="h-16 w-16 mb-4 text-[#4CAF50]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m5 5a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14a2 2 0 012 2v14z" />
+            </svg>
+            <h1 class="text-2xl font-bold mb-4 robot-title text-center">ပါဠိစကားပြောသင်တန်းက ကြိုဆိုပါတယ်</h1>
+            <input id="user-name-input" type="text" placeholder="သင်၏နာမည်" class="w-full p-3 mb-4 robot-input">
+            <button id="user-login-btn" class="robot-btn w-full py-3 text-lg font-bold">
+                ဝင်ရန်
+            </button>
+        </div>
+
+        <!-- Notification/Custom Modal -->
+        <div id="custom-modal" class="fixed inset-0 hidden items-center justify-center z-[100] modal">
+            <div class="glassmorphism p-6 rounded-xl w-full max-w-sm modal-content text-center">
+                <h3 id="modal-title" class="text-2xl font-bold mb-4"></h3>
+                <p id="modal-message" class="mb-4"></p>
+                <div id="modal-buttons" class="flex justify-end space-x-2"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc, onSnapshot, collection, query, addDoc, getDocs, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Global variables provided by the environment
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+
+        let currentUser = null;
+        let isAdmin = false;
+        let currentLang = 'my';
+        let isDark = false;
+        let deferredPrompt;
+
+        // Function to convert base64 to ArrayBuffer
+        function base64ToArrayBuffer(base64) {
+            const binary_string = window.atob(base64);
+            const len = binary_string.length;
+            const bytes = new Uint8Array(len);
+            for (let i = 0; i < len; i++) {
+                bytes[i] = binary_string.charCodeAt(i);
+            }
+            return bytes.buffer;
+        }
+
+        // Function to convert PCM to WAV
+        function pcmToWav(pcmData, sampleRate) {
+            const numChannels = 1;
+            const bytesPerSample = 2; // 16-bit PCM
+            const headerSize = 44;
+            const totalLength = pcmData.byteLength + headerSize;
+
+            const buffer = new ArrayBuffer(totalLength);
+            const view = new DataView(buffer);
+
+            // Write WAV header
+            let offset = 0;
+            const writeString = (str) => {
+                for (let i = 0; i < str.length; i++) {
+                    view.setUint8(offset++, str.charCodeAt(i));
+                }
+            };
+            const writeUint32 = (data) => {
+                view.setUint32(offset, data, true);
+                offset += 4;
+            };
+            const writeUint16 = (data) => {
+                view.setUint16(offset, data, true);
+                offset += 2;
+            };
+
+            // RIFF chunk
+            writeString('RIFF');
+            writeUint32(totalLength - 8);
+            writeString('WAVE');
+
+            // fmt chunk
+            writeString('fmt ');
+            writeUint32(16); // Chunk size
+            writeUint16(1);  // Audio format (1 = PCM)
+            writeUint16(numChannels);
+            writeUint32(sampleRate);
+            writeUint32(sampleRate * numChannels * bytesPerSample); // Byte rate
+            writeUint16(numChannels * bytesPerSample); // Block align
+            writeUint16(bytesPerSample * 8); // Bits per sample
+
+            // data chunk
+            writeString('data');
+            writeUint32(pcmData.byteLength);
+
+            // Write PCM data
+            const pcmBytes = new Uint8Array(pcmData.buffer);
+            for (let i = 0; i < pcmBytes.length; i++) {
+                view.setUint8(offset++, pcmBytes[i]);
+            }
+
+            return new Blob([view], { type: 'audio/wav' });
+        }
+
+        const translations = {
+            'my': {
+                'login_title': 'ပါဠိစကားပြောသင်တန်းက ကြိုဆိုပါတယ်',
+                'login_placeholder': 'သင်၏နာမည်',
+                'login_button': 'ဝင်ရန်',
+                'app_title': 'ပါဠိစကားပြော-Pali Speaking',
+                'nav_videos': 'သင်တန်းဗီဒီယို',
+                'nav_teachers': 'ဆရာစာရင်း',
+                'nav_schedule': 'သင်တန်းအချိန်စာရင်း',
+                'nav_posts': 'ပို့စ်များ',
+                'nav_history': 'သင်တန်းသမိုင်း',
+                'nav_contact': 'ဆက်သွယ်ရန်',
+                'nav_pali_tutor': 'ပါဠိ Tutor ✨',
+                'mode_dark': 'Dark Mode',
+                'mode_light': 'Light Mode',
+                'install_text': 'App ကို Install လုပ်ရန်',
+                'install_button': 'Install',
+                'admin_login_btn': 'Admin',
+                'videos_title': 'သင်တန်းဗီဒီယိုများ',
+                'posts_title': 'ပို့စ်များ',
+                'teachers_title': 'ဆရာများ',
+                'schedule_title': 'သင်တန်းအချိန်စာရင်း',
+                'history_title': 'သင်တန်းသမိုင်း',
+                'contact_title': 'ဆက်သွယ်ရန်',
+                'contact_info': 'Viber ဖုန်းနံပါတ်',
+                'admin_panel_title': 'Admin Panel',
+                'add_video': 'ဗီဒီယိုအသစ်ထည့်ရန်',
+                'edit_video': 'ဗီဒီယိုပြုပြင်ရန်',
+                'video_link': 'ဗီဒီယိုလင့်ခ် (Telegram)',
+                'teacher_name': 'ဆရာအမည်',
+                'course_title': 'သင်တန်းခေါင်းစဉ်',
+                'date': 'ရက်စွဲ',
+                'add_post': 'ပို့စ်အသစ်တင်ရန်',
+                'post_title': 'ပိုစ့်ခေါင်းစဉ်',
+                'post_content': 'ပိုစ့်အကြောင်းအရာ',
+                'post_image': 'ဓာတ်ပုံလင့်ခ်',
+                'update_contact': 'ဆက်သွယ်ရန် ဖုန်းနံပါတ် ပြောင်းလဲရန်',
+                'viber_number': 'Viber ဖုန်းနံပါတ်',
+                'save': 'သိမ်းဆည်းရန်',
+                'cancel': 'ဖျက်သိမ်းရန်',
+                'admin_login_success': 'Admin Login အောင်မြင်ပါသည်',
+                'admin_login_fail': 'Login မအောင်မြင်ပါ',
+                'new_video_notif_title': 'သင်တန်းအသစ်',
+                'new_video_notif_body': 'ဗီဒီယိုအသစ် ရောက်ရှိလာပါပြီ',
+                'new_post_notif_title': 'ပို့စ်အသစ်',
+                'new_post_notif_body': 'ပို့စ်အသစ်တစ်ခု တင်ထားပါသည်',
+                'tutor_title': 'ပါဠိ Tutor',
+                'tutor_placeholder': 'ပါဠိစကားလုံး သို့မဟုတ် သဒ္ဒါစည်းမျဉ်းတစ်ခုခုကို မေးပါ...',
+                'tutor_ask_btn': 'မေးရန် ✨',
+                'tutor_speak_btn': 'အသံထွက် နားထောင်ရန် 🔊',
+                'tutor_loading': 'စဉ်းစားနေပါသည်...',
+                'tutor_error': 'အမှားတစ်ခုခု ဖြစ်သွားပါပြီ။ ထပ်မံကြိုးစားပါ။',
+            },
+            'en': {
+                'login_title': 'Welcome to Pali Speaking Course',
+                'login_placeholder': 'Your Name',
+                'login_button': 'Login',
+                'app_title': 'Pali Speaking',
+                'nav_videos': 'Videos',
+                'nav_teachers': 'Teachers',
+                'nav_schedule': 'Schedule',
+                'nav_posts': 'Posts',
+                'nav_history': 'History',
+                'nav_contact': 'Contact',
+                'nav_pali_tutor': 'Pali Tutor ✨',
+                'mode_dark': 'Dark Mode',
+                'mode_light': 'Light Mode',
+                'install_text': 'Install the App',
+                'install_button': 'Install',
+                'admin_login_btn': 'Admin',
+                'videos_title': 'Course Videos',
+                'posts_title': 'Posts',
+                'teachers_title': 'Teachers',
+                'schedule_title': 'Course Schedule',
+                'history_title': 'Course History',
+                'contact_title': 'Contact Us',
+                'contact_info': 'Viber Phone Number',
+                'admin_panel_title': 'Admin Panel',
+                'add_video': 'Add New Video',
+                'edit_video': 'Edit Video',
+                'video_link': 'Video Link (Telegram)',
+                'teacher_name': 'Teacher Name',
+                'course_title': 'Course Title',
+                'date': 'Date',
+                'add_post': 'Add New Post',
+                'post_title': 'Post Title',
+                'post_content': 'Post Content',
+                'post_image': 'Image Link',
+                'update_contact': 'Update Contact Number',
+                'viber_number': 'Viber Phone Number',
+                'save': 'Save',
+                'cancel': 'Cancel',
+                'admin_login_success': 'Admin Login Successful',
+                'admin_login_fail': 'Login Failed',
+                'new_video_notif_title': 'New Course',
+                'new_video_notif_body': 'A new video is available',
+                'new_post_notif_title': 'New Post',
+                'new_post_notif_body': 'A new post has been published',
+                'tutor_title': 'Pali Tutor',
+                'tutor_placeholder': 'Ask about a Pali word or grammar rule...',
+                'tutor_ask_btn': 'Ask ✨',
+                'tutor_speak_btn': 'Listen to pronunciation 🔊',
+                'tutor_loading': 'Thinking...',
+                'tutor_error': 'An error occurred. Please try again.',
+            }
+        };
+
+        const getLangText = (key) => {
+            return translations[currentLang][key] || key;
+        };
+
+        const updateUI = () => {
+            document.querySelectorAll('[id^="nav-"]').forEach(btn => {
+                const key = btn.id.replace('nav-', 'nav_').replace(/-/g, '_');
+                btn.querySelector('.btn-text-gradient').textContent = getLangText(key);
+            });
+            document.getElementById('mode-text').textContent = isDark ? getLangText('mode_light') : getLangText('mode_dark');
+            document.getElementById('install-text').textContent = getLangText('install_text');
+            document.getElementById('install-button').textContent = getLangText('install_button');
+            document.getElementById('user-name-input').placeholder = getLangText('login_placeholder');
+            document.getElementById('user-login-btn').textContent = getLangText('login_button');
+            document.getElementById('admin-login-btn').querySelector('.btn-text-gradient').textContent = getLangText('admin_login_btn');
+            
+            const loginTitleEl = document.querySelector('#login-container h1');
+            if (loginTitleEl) loginTitleEl.textContent = getLangText('login_title');
+            
+            const mainTitleEl = document.querySelector('#main-content h1');
+            if (mainTitleEl) mainTitleEl.textContent = getLangText('app_title');
+        };
+
+        const showModal = (title, message, buttons) => {
+            const modal = document.getElementById('custom-modal');
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-message').textContent = message;
+            const btnContainer = document.getElementById('modal-buttons');
+            btnContainer.innerHTML = '';
+            buttons.forEach(btn => {
+                const btnEl = document.createElement('button');
+                btnEl.className = `btn-glass px-4 py-2 rounded-lg text-white font-bold transition-transform transform hover:scale-105`;
+                const spanEl = document.createElement('span');
+                spanEl.className = `btn-text-gradient`;
+                spanEl.textContent = btn.text;
+                btnEl.appendChild(spanEl);
+                btnEl.onclick = btn.handler;
+                btnContainer.appendChild(btnEl);
+            });
+            modal.style.display = 'flex';
+        };
+
+        const hideModal = () => {
+            document.getElementById('custom-modal').style.display = 'none';
+        };
+
+        const showNotification = (title, body) => {
+            const audio = new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3');
+            audio.play().catch(e => console.error("Audio playback failed:", e));
+            showModal(title, body, [{ text: 'OK', handler: hideModal }]);
+        };
+
+        const renderLogin = () => {
+            document.getElementById('login-container').classList.remove('hidden');
+            document.getElementById('main-content').classList.add('hidden');
+            document.getElementById('admin-login-btn').classList.remove('hidden');
+        };
+
+        const renderMain = () => {
+            document.getElementById('login-container').classList.add('hidden');
+            document.getElementById('main-content').classList.remove('hidden');
+            if (isAdmin) {
+                document.getElementById('admin-login-btn').classList.add('hidden');
+                document.getElementById('main-content').classList.remove('flex-grow');
+                renderAdminPanel();
+            } else {
+                document.getElementById('admin-login-btn').classList.remove('hidden');
+                document.getElementById('main-content').classList.add('flex-grow');
+                document.getElementById('content-area').innerHTML = `
+                    <div class="flex-grow flex items-center justify-center">
+                        <h2 class="text-3xl font-bold text-center text-gray-700 dark-text">${getLangText('login_title')}</h2>
+                    </div>
+                `;
+            }
+        };
+
+        const renderAdminPanel = async () => {
+            const adminPanelHTML = `
+                <div class="p-6 glassmorphism flex-grow overflow-y-auto">
+                    <h2 class="text-3xl font-bold mb-6 text-center text-gradient">${getLangText('admin_panel_title')}</h2>
+                    <!-- Videos Section -->
+                    <div class="mb-8">
+                        <h3 class="text-2xl font-semibold mb-4">${getLangText('add_video')}</h3>
+                        <form id="add-video-form" class="space-y-4">
+                            <input type="text" id="video-link" placeholder="${getLangText('video_link')}" class="w-full p-3 rounded-lg glassmorphism text-black">
+                            <input type="text" id="teacher-name" placeholder="${getLangText('teacher_name')}" class="w-full p-3 rounded-lg glassmorphism text-black">
+                            <input type="text" id="course-title" placeholder="${getLangText('course_title')}" class="w-full p-3 rounded-lg glassmorphism text-black">
+                            <input type="date" id="video-date" class="w-full p-3 rounded-lg glassmorphism text-black">
+                            <button type="submit" class="btn-glass w-full py-3 text-lg font-bold">
+                                <span class="btn-text-gradient">${getLangText('save')}</span>
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Posts Section -->
+                    <div class="mb-8">
+                        <h3 class="text-2xl font-semibold mb-4">${getLangText('add_post')}</h3>
+                        <form id="add-post-form" class="space-y-4">
+                            <input type="text" id="post-title" placeholder="${getLangText('post_title')}" class="w-full p-3 rounded-lg glassmorphism text-black">
+                            <textarea id="post-content" placeholder="${getLangText('post_content')}" rows="5" class="w-full p-3 rounded-lg glassmorphism text-black"></textarea>
+                            <input type="text" id="post-image-link" placeholder="${getLangText('post_image')}" class="w-full p-3 rounded-lg glassmorphism text-black">
+                            <button type="submit" class="btn-glass w-full py-3 text-lg font-bold">
+                                <span class="btn-text-gradient">${getLangText('save')}</span>
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Contact Section -->
+                    <div class="mb-8">
+                        <h3 class="text-2xl font-semibold mb-4">${getLangText('update_contact')}</h3>
+                        <form id="update-contact-form" class="space-y-4">
+                            <input type="text" id="viber-number-input" placeholder="${getLangText('viber_number')}" class="w-full p-3 rounded-lg glassmorphism text-black">
+                            <button type="submit" class="btn-glass w-full py-3 text-lg font-bold">
+                                <span class="btn-text-gradient">${getLangText('save')}</span>
+                            </button>
+                        </form>
+                    </div>
+                    
+                    <!-- Font Selection Section -->
+                    <div class="mb-8">
+                        <h3 class="text-2xl font-semibold mb-4">ဖောင့်ရွေးချယ်ရန်</h3>
+                        <form id="font-form" class="space-y-4">
+                            <input type="text" id="font-url-input" placeholder="ဖောင့် URL" class="w-full p-3 rounded-lg glassmorphism text-black">
+                            <button type="submit" class="btn-glass w-full py-3 text-lg font-bold">
+                                <span class="btn-text-gradient">ဖောင့်ထည့်ရန်</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            `;
+            document.getElementById('content-area').innerHTML = adminPanelHTML;
+
+            // Handle forms
+            document.getElementById('add-video-form').addEventListener('submit', handleAddVideo);
+            document.getElementById('add-post-form').addEventListener('submit', handleAddPost);
+            document.getElementById('update-contact-form').addEventListener('submit', handleUpdateContact);
+            document.getElementById('font-form').addEventListener('submit', handleFontUpdate);
+
+            // Load existing data for editing
+            const contactRef = doc(db, `artifacts/${appId}/public/data/contact`, 'main');
+            const contactSnap = await getDoc(contactRef);
+            if (contactSnap.exists()) {
+                document.getElementById('viber-number-input').value = contactSnap.data().number;
+            }
+        };
+
+        const renderVideos = (videos) => {
+            let videoListHTML = `
+                <h2 class="text-3xl font-bold mb-6 text-center text-gradient">${getLangText('videos_title')}</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            `;
+            videos.forEach(video => {
+                videoListHTML += `
+                    <div class="glassmorphism p-4 rounded-lg flex flex-col space-y-2">
+                        <h3 class="text-xl font-bold">${video.courseTitle}</h3>
+                        <p class="text-sm font-semibold">${getLangText('teacher_name')}: ${video.teacherName}</p>
+                        <p class="text-sm">${video.date}</p>
+                        <a href="${video.link}" target="_blank" class="btn-glass w-full py-2 text-center text-lg font-bold">
+                            <span class="btn-text-gradient">ဗီဒီယိုကြည့်ရန်</span>
+                        </a>
+                        ${isAdmin ? `<button class="btn-glass w-full py-2 text-center mt-2" onclick="handleDelete('videos', '${video.id}')">
+                                <span class="btn-text-gradient">ဖျက်ရန်</span>
+                            </button>` : ''}
+                    </div>
+                `;
+            });
+            videoListHTML += `</div>`;
+            document.getElementById('content-area').innerHTML = videoListHTML;
+        };
+
+        const renderPosts = (posts) => {
+            let postListHTML = `
+                <h2 class="text-3xl font-bold mb-6 text-center text-gradient">${getLangText('posts_title')}</h2>
+                <div class="space-y-6">
+            `;
+            posts.forEach(post => {
+                postListHTML += `
+                    <div class="glassmorphism p-6 rounded-lg">
+                        ${post.imageUrl ? `<img src="${post.imageUrl}" alt="${post.title}" class="w-full h-auto rounded-lg mb-4">` : ''}
+                        <h3 class="text-2xl font-bold mb-2">${post.title}</h3>
+                        <p>${post.content}</p>
+                        ${isAdmin ? `<button class="btn-glass w-full py-2 text-center mt-4" onclick="handleDelete('posts', '${post.id}')">
+                                <span class="btn-text-gradient">ဖျက်ရန်</span>
+                            </button>` : ''}
+                    </div>
+                `;
+            });
+            postListHTML += `</div>`;
+            document.getElementById('content-area').innerHTML = postListHTML;
+        };
+
+        const renderTeachers = (teachers) => {
+            let teacherListHTML = `
+                <h2 class="text-3xl font-bold mb-6 text-center text-gradient">${getLangText('teachers_title')}</h2>
+                <div class="space-y-4">
+            `;
+            const uniqueTeachers = [...new Set(teachers.map(t => t.teacherName))];
+            uniqueTeachers.forEach(teacher => {
+                teacherListHTML += `
+                    <div class="glassmorphism p-4 rounded-lg">
+                        <h3 class="text-xl font-bold">${teacher}</h3>
+                    </div>
+                `;
+            });
+            teacherListHTML += `</div>`;
+            document.getElementById('content-area').innerHTML = teacherListHTML;
+        };
+        
+        const renderSchedule = () => {
+             document.getElementById('content-area').innerHTML = `<h2 class="text-3xl font-bold mb-6 text-center text-gradient">${getLangText('schedule_title')}</h2><p class="text-center">သင်တန်းအချိန်စာရင်းအချက်အလက်များကို မကြာမီထည့်သွင်းပါမည်။</p>`;
+        }
+        
+        const renderHistory = () => {
+             document.getElementById('content-area').innerHTML = `<h2 class="text-3xl font-bold mb-6 text-center text-gradient">${getLangText('history_title')}</h2><p class="text-center">သင်တန်းသမိုင်းအကြောင်းအရာများကို မကြာမီထည့်သွင်းပါမည်။</p>`;
+        }
+        
+        const renderContact = async () => {
+            const contactRef = doc(db, `artifacts/${appId}/public/data/contact`, 'main');
+            const contactSnap = await getDoc(contactRef);
+            const number = contactSnap.exists() ? contactSnap.data().number : 'N/A';
+            document.getElementById('content-area').innerHTML = `
+                <h2 class="text-3xl font-bold mb-6 text-center text-gradient">${getLangText('contact_title')}</h2>
+                <div class="glassmorphism p-6 rounded-lg text-center">
+                    <p class="text-xl">${getLangText('contact_info')}:</p>
+                    <p class="text-2xl font-bold">${number}</p>
+                    <p class="text-sm mt-4">ဖုန်းနံပါတ်ကို နှိပ်လိုက်ပါက Viber သို့ တန်းသွားပါမည်။</p>
+                    <a href="viber://chat?number=${number.replace(/\s/g, '')}" target="_blank" class="btn-glass w-full py-2 text-center mt-4">
+                        <span class="btn-text-gradient">Viber သို့ ဆက်သွယ်ရန်</span>
+                    </a>
+                </div>
+            `;
+        };
+
+        const renderPaliTutor = () => {
+            document.getElementById('content-area').innerHTML = `
+                <div class="flex flex-col p-6 glassmorphism flex-grow overflow-y-auto">
+                    <h2 class="text-3xl font-bold mb-6 text-center text-gradient">${getLangText('tutor_title')}</h2>
+                    <p class="text-center mb-4">ပါဠိဘာသာစကားနဲ့ပတ်သက်ပြီး သိလိုတာကို မေးမြန်းနိုင်ပါတယ်။</p>
+                    <textarea id="pali-tutor-input" placeholder="${getLangText('tutor_placeholder')}" rows="5" class="w-full p-3 rounded-lg glassmorphism text-black mb-4"></textarea>
+                    <div class="flex space-x-4">
+                        <button id="pali-tutor-ask-btn" class="btn-glass w-1/2 py-3 text-lg font-bold">
+                            <span class="btn-text-gradient">${getLangText('tutor_ask_btn')}</span>
+                        </button>
+                        <button id="pali-tutor-speak-btn" class="btn-glass w-1/2 py-3 text-lg font-bold">
+                            <span class="btn-text-gradient">${getLangText('tutor_speak_btn')}</span>
+                        </button>
+                    </div>
+                    <div id="pali-tutor-output" class="mt-6 p-6 glassmorphism rounded-lg flex-grow overflow-y-auto">
+                        <p id="tutor-response" class="whitespace-pre-wrap"></p>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('pali-tutor-ask-btn').addEventListener('click', handleGeminiRequest);
+            document.getElementById('pali-tutor-speak-btn').addEventListener('click', handleGeminiTTS);
+        };
+        
+        // Gemini API Functions
+        const handleGeminiRequest = async () => {
+            const inputElement = document.getElementById('pali-tutor-input');
+            const outputElement = document.getElementById('tutor-response');
+            const askBtn = document.getElementById('pali-tutor-ask-btn');
+            const query = inputElement.value;
+
+            if (!query) return;
+
+            askBtn.disabled = true;
+            outputElement.textContent = getLangText('tutor_loading');
+
+            const apiKey = "";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+            const systemPrompt = `You are a helpful and knowledgeable Pali language tutor. Your role is to provide clear, concise, and accurate explanations of Pali grammar, vocabulary, and concepts in both Burmese and English. Translate phrases, explain grammar rules, and give examples. Use Pyidaungsu font for Burmese text.`;
+            const userQuery = `အောက်ပါမေးခွန်းကို ပါဠိ Tutor တစ်ယောက်အနေနဲ့ မြန်မာလို ပြန်ဖြေပေးပါ။ မူရင်းစာသားကိုလည်း ပါဠိအက္ခရာဖြင့် ဖော်ပြပေးပါ။ \n\nမေးခွန်း: ${query}`;
+
+            const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                systemInstruction: { parts: [{ text: systemPrompt }] },
+            };
+
+            let retries = 0;
+            const maxRetries = 3;
+
+            const fetchData = async () => {
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    if (!response.ok) throw new Error('API request failed');
+                    return await response.json();
+                } catch (error) {
+                    if (retries < maxRetries) {
+                        retries++;
+                        const delay = Math.pow(2, retries) * 1000;
+                        await new Promise(res => setTimeout(res, delay));
+                        return fetchData();
+                    } else {
+                        throw error;
+                    }
+                }
+            };
+
+            try {
+                const result = await fetchData();
+                const text = result?.candidates?.[0]?.content?.parts?.[0]?.text || getLangText('tutor_error');
+                outputElement.textContent = text;
+            } catch (error) {
+                console.error("Error with Gemini API:", error);
+                outputElement.textContent = getLangText('tutor_error');
+            } finally {
+                askBtn.disabled = false;
+            }
+        };
+
+        const handleGeminiTTS = async () => {
+            const textToSpeak = document.getElementById('tutor-response').textContent;
+            const speakBtn = document.getElementById('pali-tutor-speak-btn');
+            if (!textToSpeak || textToSpeak.length > 400) {
+                 showModal('သတိပေးချက်', 'အသံဖိုင်ဖန်တီးရန် စာသားလိုအပ်ပါသည်။ သို့မဟုတ် စာသားသည် အလွန်ရှည်လျားပါသည်။', [{ text: 'OK', handler: hideModal }]);
+                 return;
+            }
+
+            speakBtn.disabled = true;
+
+            const apiKey = "";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
+
+            const payload = {
+                contents: [{ parts: [{ text: textToSpeak }] }],
+                generationConfig: {
+                    responseModalities: ["AUDIO"],
+                    speechConfig: {
+                        voiceConfig: {
+                            prebuiltVoiceConfig: { voiceName: "Kore" }
+                        }
+                    }
+                },
+                model: "gemini-2.5-flash-preview-tts"
+            };
+
+            let retries = 0;
+            const maxRetries = 3;
+
+            const fetchData = async () => {
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    if (!response.ok) throw new Error('API request failed');
+                    return await response.json();
+                } catch (error) {
+                    if (retries < maxRetries) {
+                        retries++;
+                        const delay = Math.pow(2, retries) * 1000;
+                        await new Promise(res => setTimeout(res, delay));
+                        return fetchData();
+                    } else {
+                        throw error;
+                    }
+                }
+            };
+            
+            try {
+                const result = await fetchData();
+                const part = result?.candidates?.[0]?.content?.parts?.[0];
+                const audioData = part?.inlineData?.data;
+                const mimeType = part?.inlineData?.mimeType;
+
+                if (audioData && mimeType && mimeType.startsWith("audio/")) {
+                    const sampleRate = parseInt(mimeType.match(/rate=(\d+)/)[1], 10);
+                    const pcmData = base64ToArrayBuffer(audioData);
+                    const wavBlob = pcmToWav(pcmData, sampleRate);
+                    const audioUrl = URL.createObjectURL(wavBlob);
+                    const audio = new Audio(audioUrl);
+                    audio.play();
+                } else {
+                    showModal('အမှား', 'အသံဖိုင် ဖန်တီးရာတွင် ပြဿနာ ရှိပါသည်။', [{ text: 'OK', handler: hideModal }]);
+                }
+            } catch (error) {
+                console.error("Error with TTS API:", error);
+                showModal('အမှား', 'အသံဖိုင် ဖန်တီးရာတွင် ပြဿနာ ရှိပါသည်။', [{ text: 'OK', handler: hideModal }]);
+            } finally {
+                speakBtn.disabled = false;
+            }
+        };
+
+
+        // Data Handling Functions (Firestore)
+        const videosCollection = collection(db, `artifacts/${appId}/public/data/videos`);
+        const postsCollection = collection(db, `artifacts/${appId}/public/data/posts`);
+
+        const handleAddVideo = async (e) => {
+            e.preventDefault();
+            const form = e.target;
+            const videoData = {
+                link: form['video-link'].value,
+                teacherName: form['teacher-name'].value,
+                courseTitle: form['course-title'].value,
+                date: form['video-date'].value,
+                createdAt: new Date()
+            };
+            try {
+                await addDoc(videosCollection, videoData);
+                form.reset();
+                showNotification(getLangText('new_video_notif_title'), getLangText('new_video_notif_body'));
+            } catch (error) {
+                console.error("Error adding video: ", error);
+            }
+        };
+
+        const handleAddPost = async (e) => {
+            e.preventDefault();
+            const form = e.target;
+            const postData = {
+                title: form['post-title'].value,
+                content: form['post-content'].value,
+                imageUrl: form['post-image-link'].value,
+                createdAt: new Date()
+            };
+            try {
+                await addDoc(postsCollection, postData);
+                form.reset();
+                showNotification(getLangText('new_post_notif_title'), getLangText('new_post_notif_body'));
+            } catch (error) {
+                console.error("Error adding post: ", error);
+            }
+        };
+        
+        const handleUpdateContact = async (e) => {
+            e.preventDefault();
+            const number = document.getElementById('viber-number-input').value;
+            const contactRef = doc(db, `artifacts/${appId}/public/data/contact`, 'main');
+            try {
+                await setDoc(contactRef, { number });
+                showModal('အောင်မြင်ပါသည်', 'Viber ဖုန်းနံပါတ်ကို ပြောင်းလဲလိုက်ပါပြီ', [{ text: 'OK', handler: hideModal }]);
+            } catch (error) {
+                console.error("Error updating contact: ", error);
+            }
+        };
+        
+        const handleFontUpdate = async (e) => {
+             e.preventDefault();
+             const fontUrl = document.getElementById('font-url-input').value;
+             const styleEl = document.createElement('style');
+             styleEl.innerHTML = `@font-face { font-family: 'CustomFont'; src: url('${fontUrl}'); } body { font-family: 'CustomFont', sans-serif; }`;
+             document.head.appendChild(styleEl);
+             showModal('အောင်မြင်ပါသည်', 'ဖောင့်ကို ပြောင်းလဲလိုက်ပါပြီ', [{ text: 'OK', handler: hideModal }]);
+        }
+        
+        window.handleDelete = async (collectionName, docId) => {
+            const collectionRef = collection(db, `artifacts/${appId}/public/data/${collectionName}`);
+            await deleteDoc(doc(collectionRef, docId));
+            showModal('ဖျက်ပြီးပါပြီ', 'အချက်အလက်ကို ဖျက်လိုက်ပါပြီ', [{ text: 'OK', handler: hideModal }]);
+        };
+
+        // Event Listeners
+        document.getElementById('user-login-btn').addEventListener('click', () => {
+            const userName = document.getElementById('user-name-input').value;
+            if (userName) {
+                localStorage.setItem('userName', userName);
+                renderMain();
+            } else {
+                showModal('သတိပေးချက်', 'ကျေးဇူးပြု၍ သင်၏နာမည်ကို ထည့်သွင်းပါ။', [{ text: 'OK', handler: hideModal }]);
+            }
+        });
+        
+        document.getElementById('user-name-input').addEventListener('keypress', (e) => {
+             if (e.key === 'Enter') {
+                 document.getElementById('user-login-btn').click();
+             }
+        });
+
+        document.getElementById('admin-login-btn').addEventListener('click', () => {
+            showModal(
+                'Admin Login',
+                'Password ထည့်ပါ',
+                [
+                    { text: 'Cancel', handler: hideModal },
+                    { text: 'Login', handler: () => {
+                        const passwordInput = document.createElement('input');
+                        passwordInput.type = 'password';
+                        passwordInput.placeholder = 'Password';
+                        passwordInput.className = 'w-full p-3 rounded-lg glassmorphism text-black mb-4';
+                        document.getElementById('modal-message').appendChild(passwordInput);
+
+                        const loginBtn = document.createElement('button');
+                        loginBtn.className = 'btn-glass w-full py-3 text-lg font-bold';
+                        const spanEl = document.createElement('span');
+                        spanEl.className = 'btn-text-gradient';
+                        spanEl.textContent = 'Login';
+                        loginBtn.appendChild(spanEl);
+                        loginBtn.onclick = () => {
+                            if (passwordInput.value === 'sivali') {
+                                isAdmin = true;
+                                hideModal();
+                                renderMain();
+                                showModal(getLangText('admin_login_success'), '', [{ text: 'OK', handler: hideModal }]);
+                            } else {
+                                showModal(getLangText('admin_login_fail'), 'Password မှားယွင်းနေပါသည်', [{ text: 'OK', handler: hideModal }]);
+                            }
+                        };
+                        document.getElementById('modal-buttons').innerHTML = '';
+                        document.getElementById('modal-buttons').appendChild(loginBtn);
+                    }}
+                ]
+            );
+        });
+
+        document.getElementById('mode-toggle').addEventListener('click', () => {
+            isDark = !isDark;
+            document.body.classList.toggle('dark-mode', isDark);
+            document.body.classList.toggle('light-mode', !isDark);
+            updateUI();
+        });
+
+        document.getElementById('lang-toggle').addEventListener('click', () => {
+            currentLang = currentLang === 'my' ? 'en' : 'my';
+            document.getElementById('lang-toggle').dataset.lang = currentLang;
+            updateUI();
+        });
+
+        // PWA Install Prompt
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('install-prompt-container').style.display = 'block';
+        });
+
+        document.getElementById('install-button').addEventListener('click', () => {
+            document.getElementById('install-prompt-container').style.display = 'none';
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('User accepted the install prompt');
+                    } else {
+                        console.log('User dismissed the install prompt');
+                    }
+                    deferredPrompt = null;
+                });
+            }
+        });
+
+        document.getElementById('nav-videos').addEventListener('click', () => {
+            onSnapshot(query(videosCollection), (querySnapshot) => {
+                const videos = [];
+                querySnapshot.forEach((doc) => {
+                    videos.push({ id: doc.id, ...doc.data() });
+                });
+                renderVideos(videos);
+            });
+        });
+        
+        document.getElementById('nav-posts').addEventListener('click', () => {
+            onSnapshot(query(postsCollection), (querySnapshot) => {
+                const posts = [];
+                querySnapshot.forEach((doc) => {
+                    posts.push({ id: doc.id, ...doc.data() });
+                });
+                renderPosts(posts);
+            });
+        });
+        
+        document.getElementById('nav-teachers').addEventListener('click', async () => {
+            const querySnapshot = await getDocs(videosCollection);
+            const videos = querySnapshot.docs.map(doc => doc.data());
+            renderTeachers(videos);
+        });
+        
+        document.getElementById('nav-schedule').addEventListener('click', renderSchedule);
+        document.getElementById('nav-history').addEventListener('click', renderHistory);
+        document.getElementById('nav-contact').addEventListener('click', renderContact);
+        document.getElementById('nav-pali-tutor').addEventListener('click', renderPaliTutor);
+
+        // Initial setup
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                currentUser = user;
+                const userName = localStorage.getItem('userName');
+                if (userName) {
+                    renderMain();
+                    // Initial view to videos
+                    document.getElementById('nav-videos').click();
+                } else {
+                    renderLogin();
+                }
+            } else {
+                renderLogin();
+            }
+        });
+        
+        if (initialAuthToken) {
+            signInWithCustomToken(auth, initialAuthToken).catch((error) => {
+                console.error("Error signing in with custom token: ", error);
+                signInAnonymously(auth);
+            });
+        } else {
+            signInAnonymously(auth);
+        }
+
+        updateUI();
+
+    </script>
+</body>
+</html>
